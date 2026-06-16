@@ -76,6 +76,9 @@ class NeuroSymbolicRetailAssistant:
             plan = ["fallback-cheapest-available"]
 
         response, explanation = generate_grounded_response(product, state, plan, rng=self.rng)
+        clarification_needed = not state.extracted_budget_correctly and any(
+            step.startswith("request-budget-clarification") for step in plan
+        )
         return RecommendationResult(
             condition="neurosymbolic",
             product=product,
@@ -84,5 +87,8 @@ class NeuroSymbolicRetailAssistant:
             plan=plan,
             pddl_domain_path=str(domain_path),
             pddl_problem_path=str(problem_path),
-            metadata={"pddl_plan_found": plan != ["fallback-cheapest-available"]},
+            metadata={
+                "pddl_plan_found": plan != ["fallback-cheapest-available"],
+                "clarification_needed": clarification_needed,
+            },
         )

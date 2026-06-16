@@ -26,10 +26,36 @@ class Product:
 
 @dataclass
 class MentalModel:
-    """A compact symbolic approximation of the customer's mental model."""
+    """A compact symbolic approximation of the customer's mental model.
+
+    Economic constraints
+    --------------------
+    budget               : hard upper limit stated by the user (euros).
+    budget_sensitivity   : True when price is an explicit concern.
+    budget_flexibility   : fraction above the stated budget the user may
+                           accept, e.g. 0.10 means up to +10 %.  Extracted
+                           from hedging language ("a bit over", "flexible").
+                           When non-zero the PDDL layer adds a ``near-budget``
+                           predicate and enables ``recommend-flex-budget-trousers``.
+
+    Non-economic / interaction constraints
+    --------------------------------------
+    comfort_priority     : comfort outweighs style or price.
+    intended_use         : "everyday", "formal", "travel", "smart-casual".
+                           Compiled to the ``formal-use`` PDDL predicate when
+                           the value is "formal".
+    uncertain            : user expressed ambiguity ("not sure", "maybe").
+                           Triggers a ``offer-comparison`` plan step instead of
+                           the default ``offer-alternative``.
+    upsell_rejected      : user has explicitly declined premium products.
+    prefers_low_pressure : user prefers minimal sales pressure.  Compiled to
+                           the ``low-pressure`` PDDL predicate; influences how
+                           alternatives are phrased.
+    """
 
     budget: Optional[float] = None
     budget_sensitive: bool = False
+    budget_flexibility: float = 0.0
     comfort_priority: bool = False
     intended_use: str = "everyday"
     uncertain: bool = False
