@@ -2,7 +2,8 @@
 
 A lightweight Python prototype comparing a **real LLM-only retail robot** (Claude Haiku) against a **neuro-symbolic retail robot** in a trouser-recommendation scenario.
 
-Designed for the ICSR 2026 ASIMOV workshop paper. Intentionally small, reproducible, and inspectable.
+Designed for the ICSR 2026 ASIMOV workshop paper titled "Mental-Model-Aware Retail Robots: Neuro-Symbolic Explainable Assistance for Trustworthy Human–Robot Commerce". 
+Intentionally small, reproducible, and inspectable.
 
 ## What is implemented?
 
