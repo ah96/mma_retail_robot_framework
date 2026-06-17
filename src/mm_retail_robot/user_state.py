@@ -85,4 +85,8 @@ def infer_interaction_state(
         upsell_rejected=any(token in text for token in ["no premium", "not premium", "do not show premium", "no expensive"]),
         prefers_low_pressure=True,
     )
-    return InteractionState(mental_model=model, extracted_budget_correctly=extracted_budget_correctly)
+    return InteractionState(
+        mental_model=model,
+        extracted_budget_correctly=extracted_budget_correctly,
+        utterance=utterance,
+    )

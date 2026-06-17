@@ -9,6 +9,7 @@ from typing import Dict, List, Sequence
 import pandas as pd
 
 from .assistant import LLMOnlyRetailAssistant, NeuroSymbolicRetailAssistant
+from .llm_assistant import LLMOnlyRetailAssistantReal
 from .models import Product, RecommendationResult
 from .user_state import infer_interaction_state
 
@@ -44,10 +45,25 @@ def run_simulation(
     n_users: int = 200,
     seed: int = 7,
     pddl_output_dir: str | Path = "generated_pddl",
+    use_real_llm: bool = False,
 ) -> pd.DataFrame:
-    """Run the LLM-only and neuro-symbolic conditions over simulated users."""
+    """Run the LLM-only and neuro-symbolic conditions over simulated users.
+
+    Parameters
+    ----------
+    use_real_llm:
+        When True, the LLM-only condition calls the Anthropic API via
+        LLMOnlyRetailAssistantReal instead of the stochastic heuristic.
+        Requires ANTHROPIC_API_KEY in the environment.
+        Adds ~200 API calls (< $0.10 with claude-haiku-4-5-20251001).
+    """
     rng = Random(seed)
-    llm = LLMOnlyRetailAssistant(catalog, rng=Random(seed + 1))
+    if use_real_llm:
+        llm: LLMOnlyRetailAssistant | LLMOnlyRetailAssistantReal = LLMOnlyRetailAssistantReal(
+            catalog, rng=Random(seed + 1)
+        )
+    else:
+        llm = LLMOnlyRetailAssistant(catalog, rng=Random(seed + 1))
     neuro = NeuroSymbolicRetailAssistant(catalog, pddl_output_dir=pddl_output_dir, rng=Random(seed + 2))
     rows: List[Dict[str, object]] = []
 

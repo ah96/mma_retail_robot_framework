@@ -73,6 +73,7 @@ class InteractionState:
     rejected_products: Set[str] = field(default_factory=set)
     commercial_disclosures: Set[str] = field(default_factory=set)
     extracted_budget_correctly: bool = True
+    utterance: str = ""
 
 
 @dataclass

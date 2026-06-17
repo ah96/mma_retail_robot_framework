@@ -211,13 +211,36 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--output-dir", default=str(REPO_ROOT / "results"))
     parser.add_argument("--pddl-output-dir", default=str(REPO_ROOT / "generated_pddl"))
+    parser.add_argument(
+        "--real-llm",
+        action="store_true",
+        help=(
+            "Use a live Anthropic API call for the LLM-only condition "
+            "(requires ANTHROPIC_API_KEY). ~n-users API calls, < $0.10 with Haiku."
+        ),
+    )
     args = parser.parse_args()
+
+    if args.real_llm:
+        import os
+        if not os.environ.get("ANTHROPIC_API_KEY"):
+            parser.error("--real-llm requires ANTHROPIC_API_KEY to be set in the environment.")
+        print(
+            f"[real-llm] LLM-only condition will call the Anthropic API "
+            f"({args.n_users} calls). Press Ctrl-C to abort."
+        )
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     catalog = load_catalog(args.catalog)
-    trials = run_simulation(catalog, n_users=args.n_users, seed=args.seed, pddl_output_dir=args.pddl_output_dir)
+    trials = run_simulation(
+        catalog,
+        n_users=args.n_users,
+        seed=args.seed,
+        pddl_output_dir=args.pddl_output_dir,
+        use_real_llm=args.real_llm,
+    )
     summary = summarize_conditions(trials)
 
     trials.to_csv(output_dir / "simulated_trials.csv", index=False)
