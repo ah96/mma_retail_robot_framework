@@ -55,7 +55,6 @@ def run_simulation(
         When True, the LLM-only condition calls the Anthropic API via
         LLMOnlyRetailAssistantReal instead of the stochastic heuristic.
         Requires ANTHROPIC_API_KEY in the environment.
-        Adds ~200 API calls (< $0.10 with claude-haiku-4-5-20251001).
     """
     rng = Random(seed)
     if use_real_llm:

@@ -1,11 +1,9 @@
 """Real LLM-only retail assistant using the Anthropic API.
 
-This is the honest version of the LLM-only baseline that calls Claude
-instead of using a stochastic heuristic.  Requires ANTHROPIC_API_KEY to be
-set in the environment.
+Requires ANTHROPIC_API_KEY to be set in the environment.
 
-Use LLMOnlyRetailAssistantReal as a drop-in replacement for
-LLMOnlyRetailAssistant.  The neuro-symbolic condition is unchanged.
+Use LLMOnlyRetailAssistantReal as a drop-in replacement for LLMOnlyRetailAssistant. 
+The neuro-symbolic condition is unchanged.
 """
 from __future__ import annotations
 
@@ -79,9 +77,6 @@ class LLMOnlyRetailAssistantReal:
     neuro-symbolic condition adds a PDDL planning layer on top of the same
     quality of language understanding, rather than comparing against a
     deliberately-impaired random baseline.
-
-    Model: claude-haiku-4-5-20251001 (fastest, cheapest; sufficient for a
-    retail recommendation task).  200-user simulation ≈ 200 API calls ≈ <$0.10.
     """
 
     def __init__(

@@ -5,9 +5,6 @@ Run simulated prototype diagnostics and plot prototype-level results with public
 This script generates:
 1. rate_metrics_noisy_pddl.pdf
 2. mean_price_noisy_pddl.pdf
-
-The figures use larger axis titles, thicker tick labels, and clearer bar labels
-for inclusion in a two-column LNCS/LNAI-style workshop paper.
 """
 from __future__ import annotations
 

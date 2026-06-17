@@ -4,7 +4,7 @@ This module demonstrates the framework's claim regarding user control: a
 customer can dynamically update or override an inferred mental model when a
 constraint mismatch occurs.  The engine runs multiple turns, merging the
 correction utterance into the prior mental model so that only the explicitly
-corrected fields change — everything else is preserved from the previous turn.
+corrected fields change.
 
 Typical usage::
 
