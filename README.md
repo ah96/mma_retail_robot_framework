@@ -148,7 +148,7 @@ The neuro-symbolic condition prints a symbolic plan and writes PDDL files to `ge
 python scripts/run_simulated_evaluation.py --n-users 200 --output-dir results
 ```
 
-**Real LLM baseline (requires `ANTHROPIC_API_KEY`, ~200 API calls, <$0.10):**
+**Real LLM baseline (requires `ANTHROPIC_API_KEY`):**
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
